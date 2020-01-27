@@ -1,0 +1,23 @@
+
+
+CREATE COMPUTE MODULE Add_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		  --  CALL CopyMessageHeaders();
+	     CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	-- CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE I INTEGER 1;	
+		DECLARE add REFERENCE TO InputRoot.XMLNSC.operation.addition[>];
+		WHILE LASTMOVE(add) DO
+SET OutputRoot.JSON.Data.Details[I].A = CAST(add.a AS INTEGER)+ CAST(add.b AS INTEGER);	
+			SET I = I + 1;
+			MOVE add NEXTSIBLING;
+		END WHILE;
+	END;
+END MODULE;

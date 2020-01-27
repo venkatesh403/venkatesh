@@ -1,0 +1,29 @@
+CREATE COMPUTE MODULE timestamp_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		    -- CALL CopyMessageHeaders();
+	       CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN 
+		DECLARE time1 CHARACTER ;
+
+		SET time1 = CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'ddmyyHHmmssSS');
+SET Environment.variable.finalFileName ='dummyfilename'||'_'||time1||'.'||'txt';
+SET OutputLocalEnvironment.Destination.File.Name = Environment.variable.finalFileName;
+SET OutputLocalEnvironment.Destination.File.Directory = 'C:\Users\Administrator\Pictures';
+	END ;
+END MODULE;
+ 
+
