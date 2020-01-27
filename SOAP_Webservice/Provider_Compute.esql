@@ -1,8 +1,9 @@
 
-
-CREATE COMPUTE MODULE FILECHECKING_Compute
+CREATE COMPUTE MODULE Provider_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
-	BEGIN   
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		-- CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
@@ -11,7 +12,6 @@ CREATE COMPUTE MODULE FILECHECKING_Compute
 		DECLARE J INTEGER;
 		SET J = CARDINALITY(InputRoot.*[]);
 		WHILE I < J DO
-			--gitchnaging
 			SET OutputRoot.*[I] = InputRoot.*[I];
 			SET I = I + 1;
 		END WHILE;

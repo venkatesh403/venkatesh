@@ -1,0 +1,21 @@
+
+
+Importing file: C:\Users\Administrator\IBM\ACET11\workspace\SOAP_Webservice\Addition.wsdl
+
+The WSDL import will proceed with bindings AdditionSOAP.
+Creating wsdl schema document for file:///C:/Users/Administrator/IBM/ACET11/workspace/SOAP_Webservice/Addition.wsdl.
+Parsing wsdl binding {http://www.example.org/Addition/}AdditionSOAP.
+Parsing wsdl binding input Addition.
+Parsing wsdl binding output Addition.
+Processing doc style for operation Addition.
+Populating WSDL schema Addition.xsd.
+Creating file Addition.xsd in the workspace.
+Copying source WSDL Addition.wsdl to Addition.wsdl.
+
+Elapsed time processing this message definition file: 0.202 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+
