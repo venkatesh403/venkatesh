@@ -5,7 +5,6 @@ CREATE COMPUTE MODULE ftp_Compute
 	BEGIN
 		CALL CopyMessageHeaders();
 	  CALL CopyEntireMessage();
-	  -- hlooooooo;
 		RETURN TRUE;
 	END;
 
