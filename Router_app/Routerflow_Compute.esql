@@ -1,0 +1,69 @@
+
+DECLARE Config_File EXTERNAL CHARACTER ;
+CREATE COMPUTE MODULE Routerflow_Compute 
+	DECLARE rc BOOLEAN;
+CREATE FUNCTION Main() RETURNS BOOLEAN
+BEGIN 
+CALL initLog(Config_File)INTO rc;
+CALL CopyEntireMessage();
+RETURN TRUE;
+END;
+	CREATE PROCEDURE CopyEntireMessage() BEGIN 
+DECLARE i BLOB;
+		DECLARE ch CHARACTER;
+		DECLARE ID INTEGER;
+		SET ch= CAST (ASBITSTREAM(InputRoot.BLOB.BLOB  CCSID InputRoot.Properties.CodedCharSetId) AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId); 
+		IF (CONTAINS( ch , '>')) THEN 
+			CREATE LASTCHILD OF OutputRoot DOMAIN ('XMLNSC') PARSE(InputRoot.BLOB.BLOB);
+			  SET ID = OutputRoot.XMLNSC.DETAILS.PRCCODE;
+		IF ID =29 THEN
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName ='ACCOUNT_OPENING_REQUEST_QUEUE ';
+		SET OutputRoot = ch ;
+		ELSEIF ID =31 THEN
+		SET OutputRoot = ch;
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'BALANCE_ENQUIRY_REQUEST_QUEUE ';
+		ELSEIF ID =01 THEN 
+		SET OutputRoot = ch;
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'WITHDRAWL_REQUEST_QUEUE';
+	ELSE
+		SET OutputRoot = ch;
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'DEPOSITE_REQUEST_QUEUE';
+	END IF;
+		ELSEIF (CONTAINS( ch , '}')) THEN
+		CREATE LASTCHILD OF OutputRoot DOMAIN ('JSON') PARSE(InputRoot.BLOB.BLOB);
+		SET ID =OutputRoot.JSON.Data.processingCode;
+		IF ID =29 THEN
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName ='ACCOUNT_OPENING_REQUEST_QUEUE';
+		SET OutputRoot = ch;
+		ELSEIF ID =31 THEN
+		SET OutputRoot = ch;
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'BALANCE_ENQUIRY_REQUEST_QUEUE ';
+		ELSEIF ID =01 THEN 
+		SET OutputRoot = ch;
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'WITHDRAWL_REQUEST_QUEUE';
+	ELSE
+		SET OutputRoot = ch ;
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queuemanager= 'QM';
+		SET OutputLocalEnvironment.Destination.MQ.DestinationData.queueName = 'DEPOSITE_REQUEST_QUEUE';
+	
+	
+	END IF;
+			END IF;	
+
+CALL writerToLogFile(MessageFlowLabel,'ACE','INFO','========================== REQUEST RECEIVED===============')INTO rc;
+DECLARE data CHARACTER CAST(ASBITSTREAM(InputRoot CCSID 1208) AS CHARACTER CCSID 1208);
+CALL writerToLogFile(MessageFlowLabel,'ACE','INFO',data) INTO rc;
+CALL writerToLogFile(MessageFlowLabel,'ACE','DEBUG','=================== ENG ======================')INTO rc;
+
+CALL writerToLogFile(MessageFlowLabel,'ACE','INFO','========================== RESPONCE RECEIVED===============')INTO rc;
+DECLARE responce CHARACTER CAST(ASBITSTREAM(OutputRoot CCSID 1208) AS CHARACTER CCSID 1208);
+CALL writerToLogFile(MessageFlowLabel,'ACE','INFO',responce) INTO rc;
+END;
+CREATE FUNCTION initLog(IN Config_File CHARACTER) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
+CREATE FUNCTION writerToLogFile (IN COMPONENT_NAME CHARACTER,IN LOGGER_NAME CHARACTER,IN LEVEL CHARACTER,IN TEXT CHARACTER ) RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+END MODULE;
