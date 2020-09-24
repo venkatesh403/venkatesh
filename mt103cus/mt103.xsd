@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ibmDfdlExtn="http://www.ibm.com/dfdl/extensions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:recSepFieldsFmt="http://www.ibm.com/dfdl/RecordSeparatedFieldFormat">
+    <xsd:import namespace="http://www.ibm.com/dfdl/RecordSeparatedFieldFormat" schemaLocation="IBMdefined/RecordSeparatedFieldFormat.xsd"/>
+        <xsd:element ibmSchExtn:docRoot="true" name="mt103">
+    <xsd:complexType>
+      <xsd:sequence dfdl:separator="">
+        <xsd:element name="header">
+          <xsd:complexType>
+            <xsd:sequence dfdl:separator="">
+              <xsd:element dfdl:initiator="%#123;1:" dfdl:terminator="%#125;" name="block1">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:element dfdl:length="1" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" name="AppID" type="xsd:string"/>
+                    <xsd:element dfdl:length="2" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:textNumberPattern="#0" name="ServiceID" type="xsd:integer"/>
+                    <xsd:element dfdl:length="12" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" name="LTAddress" type="xsd:string"/>
+                    <xsd:element dfdl:length="4" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:textNumberPattern="#0" name="SessionNumber" type="xsd:integer"/>
+                    <xsd:element dfdl:length="6" dfdl:lengthKind="explicit" dfdl:lengthUnits="bytes" dfdl:textNumberPattern="#0" name="SequenceNum" type="xsd:integer"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:initiator="%#123;2:" dfdl:terminator="%#125;" name="block2" type="xsd:string"/>
+              <xsd:element dfdl:initiator="%#123;3:" dfdl:terminator="%#125;" name="block3">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:element dfdl:initiator="%#123;103:" dfdl:terminator="%#125;" name="Tag103-ServiceIdentifier" type="xsd:string"/>
+                    <xsd:element dfdl:initiator="%#123;113:" dfdl:terminator="%#125;" minOccurs="0" name="Tag113-BankingPriority" type="xsd:string"/>
+                    <xsd:element dfdl:initiator="%#123;108:" dfdl:terminator="%#125;" minOccurs="0" name="Tag108-MessageUserReference" type="xsd:string"/>
+                    <xsd:element dfdl:initiator="%#123;119:" dfdl:terminator="%#125;" minOccurs="0" name="Tag119-ValidationFlag" type="xsd:string"/>
+                    <xsd:element dfdl:initiator="%#123;115:" dfdl:terminator="%#125;" minOccurs="0" name="Tag115-AddresseInformation" type="xsd:string"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element dfdl:initiator="{{4:%CR;%LF;" dfdl:terminator="-}" maxOccurs="unbounded" name="body">
+          <xsd:complexType>
+            <xsd:sequence dfdl:separator="">
+              <xsd:element dfdl:initiator=":20:" dfdl:terminator="%CR;%LF;" ibmDfdlExtn:sampleValue="body_valu1" name="MT20" type="xsd:string"/>
+              <xsd:element dfdl:initiator=":13C:" dfdl:terminator="%CR;%LF;" minOccurs="0" name="MT13C" type="xsd:string"/>
+              <xsd:element dfdl:initiator=":23B:" dfdl:terminator="%CR;%LF;" ibmDfdlExtn:sampleValue="body_valu2" name="MT23B" type="xsd:string"/>
+              <xsd:element dfdl:initiator=":23E:" dfdl:terminator="%CR;%LF;" minOccurs="0" name="MT23E" type="xsd:string"/>
+              <xsd:element dfdl:initiator=":26T:" dfdl:terminator="%CR;%LF;" minOccurs="0" name="MT26T" type="xsd:string"/>
+              <xsd:element dfdl:initiator=":32A:" dfdl:terminator="%CR;%LF;" ibmDfdlExtn:sampleValue="body_valu3" name="MT32A" type="xsd:string"/>
+              <xsd:element dfdl:initiator=":33B:" dfdl:terminator="%CR;%LF;" minOccurs="0" name="MT33B" type="xsd:string"/>
+              <xsd:element dfdl:initiator=":34:" dfdl:terminator="%CR;%LF;" minOccurs="0" name="MT34" type="xsd:string"/>
+              <xsd:element dfdl:initiator=":36:" dfdl:terminator="%CR;%LF;" minOccurs="0" name="MT36" type="xsd:string"/>
+              <xsd:element dfdl:initiator=":50" dfdl:terminator=":" name="MT50">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:choice>
+                      <xsd:element name="MT50A" type="xsd:string"/>
+                      <xsd:element name="MT50K" type="xsd:string"/>
+                    </xsd:choice>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:terminator=":" name="MT50Data">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:element name="MT50DataField" type="xsd:string"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:initiator="51A:" dfdl:terminator="%CR;%LF;" minOccurs="0" name="MT51A" type="xsd:string"/>
+              <xsd:element dfdl:initiator="52" dfdl:terminator=":" minOccurs="0" name="MT52">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:choice>
+                      <xsd:element name="MT52A" type="xsd:string"/>
+                      <xsd:element name="MT52D" type="xsd:string"/>
+                    </xsd:choice>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:terminator=":" minOccurs="0" name="MT52Data">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:element name="MT52A" type="xsd:string"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:initiator="53" dfdl:terminator=":" minOccurs="0" name="MT53">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:choice>
+                      <xsd:element name="MT53A" type="xsd:string"/>
+                      <xsd:element name="MT53B" type="xsd:string"/>
+                      <xsd:element name="MT53D" type="xsd:string"/>
+                    </xsd:choice>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:terminator=":" minOccurs="0" name="MT53Data">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:element name="field1" type="xsd:string"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:initiator="54" dfdl:terminator=":" minOccurs="0" name="MT54">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:choice>
+                      <xsd:element name="MT54A" type="xsd:string"/>
+                      <xsd:element name="MT54B" type="xsd:string"/>
+                      <xsd:element name="MT54D" type="xsd:string"/>
+                    </xsd:choice>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:terminator=":" minOccurs="0" name="MT54Data">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:element name="MT54DataField" type="xsd:string"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:initiator="55" dfdl:terminator=":" minOccurs="0" name="MT55">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:choice>
+                      <xsd:element name="MT55A" type="xsd:string"/>
+                      <xsd:element name="MT55B" type="xsd:string"/>
+                      <xsd:element name="MT55D" type="xsd:string"/>
+                    </xsd:choice>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:terminator=":" minOccurs="0" name="MT55Data">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:element name="MT55DataField" type="xsd:string"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:initiator="56" dfdl:terminator=":" minOccurs="0" name="MT56">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:choice>
+                      <xsd:element name="MT56A" type="xsd:string"/>
+                      <xsd:element name="MT56B" type="xsd:string"/>
+                      <xsd:element name="MT56D" type="xsd:string"/>
+                    </xsd:choice>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:terminator=":" minOccurs="0" name="MT56Data">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:element name="MT56DataField" type="xsd:string"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:initiator="57" dfdl:terminator=":" minOccurs="0" name="MT57">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                                                                                                                                                                                                                                                                                                                          <xsd:choice>
+                      <xsd:element name="MT57A" type="xsd:string"/>
+                      <xsd:element name="MT57B" type="xsd:string"/>
+                      <xsd:element name="MT57C" type="xsd:string"/>
+                      <xsd:element name="MT57D" type="xsd:string"/>
+                    </xsd:choice>
+                                    </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:terminator=":" minOccurs="0" name="MT57Data">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:element name="MT57DataField" type="xsd:string"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:initiator="5" dfdl:terminator=":" name="M59">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:choice>
+                      <xsd:element name="MT59A" type="xsd:string"/>
+                      <xsd:element name="MT59F" type="xsd:string"/>
+                      <xsd:element name="MT59" type="xsd:string"/>
+                    </xsd:choice>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:terminator=":" name="M59Data">
+                <xsd:complexType>
+                  <xsd:sequence dfdl:separator="">
+                    <xsd:element name="MT59DataField" type="xsd:string"/>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element dfdl:initiator="70:" dfdl:occursCountKind="parsed" dfdl:terminator="%CR;%LF;" minOccurs="0" name="MT70" type="xsd:string"/>
+              <xsd:element dfdl:initiator="71A:" dfdl:occursCountKind="parsed" dfdl:terminator="%CR;%LF;" minOccurs="0" name="MT71A" type="xsd:string"/>
+              <xsd:element dfdl:initiator="71F:" dfdl:occursCountKind="parsed" dfdl:terminator="%CR;%LF;" minOccurs="0" name="MT71F" type="xsd:string"/>
+              <xsd:element dfdl:initiator="71G:" dfdl:occursCountKind="parsed" dfdl:terminator="%CR;%LF;" minOccurs="0" name="MT71G" type="xsd:string"/>
+                                          <xsd:element dfdl:initiator=":72:" dfdl:terminator="%CR;%LF;" name="MT72" type="xsd:string"/>
+                            <xsd:element dfdl:initiator="77B:" dfdl:occursCountKind="parsed" dfdl:terminator="%CR;%LF;" minOccurs="0" name="MT77B" type="xsd:string"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element dfdl:initiator="{{" name="trailer">
+          <xsd:complexType>
+            <xsd:sequence dfdl:separator="">
+              <xsd:element name="trailerData" type="xsd:string"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+    <xsd:annotation>
+		<xsd:appinfo source="http://www.ogf.org/dfdl/">
+			<dfdl:format encoding="{$dfdl:encoding}" escapeSchemeRef="" occursCountKind="implicit" ref="recSepFieldsFmt:RecordSeparatedFieldsFormat"/>
+		</xsd:appinfo>
+	</xsd:annotation>
+
+
+</xsd:schema>
